@@ -226,11 +226,11 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 					if ((two+thre)==3) {
 						var PlayerData = new Player();
 						if (two == 1) {
-							PlayerData.importData(global.rowID++, args[1], args[3], args[2]);
+							global.rowID++;PlayerData.importData(global.rowID, args[1], args[3], args[2]);
 							NConsole.writeLine(`Added ${args[1]} with IP:${args[2]} Rep:${args[3]}.`);
 							Global.Bot.sendMessage(chatId, `Updated ${args[1]} with Rep:${args[3]} at IP:${args[2]}.`);
 						} else {
-							PlayerData.importData(global.rowID++, args[1], args[2], args[3]);
+							global.rowID++;PlayerData.importData(global.rowID, args[1], args[2], args[3]);
 							NConsole.writeLine(`Added ${args[1]} with IP:${args[3]} Rep:${args[2]}.`);
 							Global.Bot.sendMessage(chatId, `Updated ${args[1]} with Rep:${args[2]} at IP:${args[3]}.`);
 						}
@@ -242,14 +242,14 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 				if(args.length == 3) {
 					if(isIP(args[2])) {
 						var PlayerData = new Player();
-						PlayerData.importData(global.rowID++, args[1], 0, args[2]);
+						global.rowID++;PlayerData.importData(global.rowID, args[1], 0, args[2]);
 						global.Players.push(PlayerData); NConsole.writeLine(`Added ${args[1]} with ${args[2]}. ${global.rowID}`);
 						Global.Bot.sendMessage(chatId, `Added ${args[1]} at IP:${args[2]}.`);
 						global.NeedSave = true;
 					} else {
 						if(isTrueNumber(args[2])) {
 							var PlayerData = new Player();
-							PlayerData.importData(global.rowID++, args[1], isTrueNumber(args[2]), "0.0.0.0");
+							global.rowID++;PlayerData.importData(global.rowID, args[1], isTrueNumber(args[2]), "0.0.0.0");
 							global.Players.push(PlayerData); NConsole.writeLine(`Added ${args[1]} with ${args[2]}. ${global.rowID} ${isTrueNumber(args[2])}`);
 							Global.Bot.sendMessage(chatId, `Added ${args[1]} with Rep:${args[2]}.`);
 							global.NeedSave = true;
@@ -262,7 +262,7 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 
 				if(args.length == 2) {
 					var PlayerData = new Player();
-					PlayerData.importData(global.rowID++, args[1], 0, "0.0.0.0");
+					global.rowID++;PlayerData.importData(global.rowID, args[1], 0, "0.0.0.0");
 					global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[1]} ${global.rowID}`);
 					Global.Bot.sendMessage(chatId, `Added ${args[1]}.`);
 					global.NeedSave = true;
@@ -288,7 +288,7 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 							var msgID = msg.message_id;var chatId = msg.chat.id;
 							if (msg.text == "Yes.") {
 								var PlayerData = new Player();
-								PlayerData.importData(global.rowID+++1, args[2], 0, "0.0.0.0");
+								global.rowID++;PlayerData.importData(global.rowID+1, args[2], 0, "0.0.0.0");
 								global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[1]} ${global.rowID}`);
 								Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
 								global.NeedSave = true;
@@ -410,7 +410,7 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 							var msgID = msg.message_id;var chatId = msg.chat.id;
 							if (msg.text == "Yes.") {
 								var PlayerData = new Player();
-								PlayerData.importData(global.rowID+++1, args[1], 0, "0.0.0.0");
+								global.rowID++;PlayerData.importData(global.rowID+1, args[1], 0, "0.0.0.0");
 								global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[1]} ${global.rowID}`);
 								Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
 								global.NeedSave = true;
@@ -554,7 +554,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 							var msgID = msg.message_id;var chatId = msg.chat.id;
 							if (msg.text == "Yes.") {
 								var PlayerData = new Player();
-								PlayerData.importData(global.rowID+++1, args[2], 0, "0.0.0.0");
+								global.rowID++;PlayerData.importData(global.rowID+1, args[2], 0, "0.0.0.0");
 								global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[1]} ${global.rowID}`);
 								global.NeedSave = true;
 								Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
@@ -608,7 +608,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 							var msgID = msg.message_id;var chatId = msg.chat.id;
 							if (msg.text == "Yes.") {
 								var PlayerData = new Player();
-								PlayerData.importData(global.rowID+++1, args[2], 0, "0.0.0.0");
+								global.rowID++;PlayerData.importData(global.rowID+1, args[2], 0, "0.0.0.0");
 								global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[1]} ${global.rowID}`);
 								global.NeedSave = true;
 								Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
@@ -662,7 +662,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 							var msgID = msg.message_id;var chatId = msg.chat.id;
 							if (msg.text == "Yes.") {
 								var PlayerData = new Player();
-								PlayerData.importData(global.rowID+++1, args[2], 0, "0.0.0.0");
+								global.rowID++;PlayerData.importData(global.rowID+1, args[2], 0, "0.0.0.0");
 								global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[1]} ${global.rowID}`);
 								global.NeedSave = true;
 								Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
@@ -716,7 +716,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 							var msgID = msg.message_id;var chatId = msg.chat.id;
 							if (msg.text == "Yes.") {
 								var PlayerData = new Player();
-								PlayerData.importData(global.rowID+++1, args[2], 0, "0.0.0.0");
+								global.rowID++;PlayerData.importData(global.rowID+1, args[2], 0, "0.0.0.0");
 								global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[2]} ${global.rowID}`);
 								global.NeedSave = true;
 								Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
@@ -770,7 +770,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 							var msgID = msg.message_id;var chatId = msg.chat.id;
 							if (msg.text == "Yes.") {
 								var PlayerData = new Player();
-								PlayerData.importData(global.rowID+++1, args[2], 0, "0.0.0.0");
+								global.rowID++;PlayerData.importData(global.rowID+1, args[2], 0, "0.0.0.0");
 								global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[1]} ${global.rowID}`);
 								global.NeedSave = true;
 								Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
@@ -821,7 +821,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 								var msgID = msg.message_id;var chatId = msg.chat.id;
 								if (msg.text == "Yes.") {
 									var PlayerData = new Player();
-									PlayerData.importData(global.rowID+++1, args[2], 0, "0.0.0.0");
+									global.rowID++;PlayerData.importData(global.rowID+1, args[2], 0, "0.0.0.0");
 									global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[1]} ${global.rowID}`);
 									global.NeedSave = true;
 									Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
