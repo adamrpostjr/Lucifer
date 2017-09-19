@@ -410,7 +410,7 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 							var msgID = msg.message_id;var chatId = msg.chat.id;
 							if (msg.text == "Yes.") {
 								var PlayerData = new Player();
-								PlayerData.importData(global.rowID+++1, args[2], 0, "0.0.0.0");
+								PlayerData.importData(global.rowID+++1, args[1], 0, "0.0.0.0");
 								global.Players.push(PlayerData); NConsole.writeLine(`Added user ${args[1]} ${global.rowID}`);
 								Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
 								global.NeedSave = true;
