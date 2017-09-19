@@ -116,7 +116,8 @@ Database.prototype = {
 				var PlayerData = new Player();
 				PlayerData.importData(row.ID, row.Username, row.Rep, row.IP);
 				list.push(PlayerData);
-				global.rowID = row.ID;
+				if (global.rowID < row.ID)
+					global.rowID = row.ID;
 			}, function(err, cntx) {
 				callback(err, list);
 			});
