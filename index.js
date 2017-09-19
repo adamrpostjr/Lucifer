@@ -26,6 +26,7 @@ Global.setupServer();
 var answerCallbacks = [];
 var debug = false
 global.notifyChannelID = -1001119220057;
+global.channelList = [-1001119220057, -100114287636];
 
 if (!debug) {
 	NConsole.writeLine("Setting up AutoSave.");
@@ -50,6 +51,9 @@ if (!debug) {
 
 Global.Bot.on('message', msg => {
 	//NConsole.writeLine(msg);
+	if(!isValidChannel(msg.chat.id))
+		return;
+	
 	
 	let callback = answerCallbacks[msg.chat.id];
 	if (callback) {
@@ -59,6 +63,9 @@ Global.Bot.on('message', msg => {
 })
 
 Global.Bot.onText(/^(\/load|\/load@Lucifer2Bot)/, (msg, match) => {
+	if(!isValidChannel(msg.chat.id))
+		return;
+	
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
@@ -70,6 +77,8 @@ Global.Bot.onText(/^(\/load|\/load@Lucifer2Bot)/, (msg, match) => {
 });
 
 Global.Bot.onText(/^(\/save|\/save@Lucifer2Bot)/, (msg, match) => {
+	if(!isValidChannel(msg.chat.id))
+		return;
 	
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
@@ -91,6 +100,9 @@ Global.Bot.onText(/^(\/uid|\/uid@Lucifer2Bot)/, (msg, match) => {
 });
 
 Global.Bot.onText(/^(\/donate|\/donate@Lucifer2Bot)/, (msg, match) => {
+	if(!isValidChannel(msg.chat.id))
+		return;
+	
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
@@ -99,6 +111,9 @@ Global.Bot.onText(/^(\/donate|\/donate@Lucifer2Bot)/, (msg, match) => {
 });
 
 Global.Bot.onText(/^(\/help|\/help@Lucifer2Bot)/, (msg, match) => {
+	if(!isValidChannel(msg.chat.id))
+		return;
+	
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
@@ -108,6 +123,9 @@ Global.Bot.onText(/^(\/help|\/help@Lucifer2Bot)/, (msg, match) => {
 
 //Matches "/user <command> [<data>]"
 Global.Bot.onText(/^(\/user (.*)|\/user@Lucifer2Bot (.*))/, (msg, match) => {
+	if(!isValidChannel(msg.chat.id))
+		return;
+	
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
@@ -176,6 +194,9 @@ Global.Bot.onText(/^(\/user (.*)|\/user@Lucifer2Bot (.*))/, (msg, match) => {
 
 //Matches "/player <command> [<data>]"
 Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => {
+	if(!isValidChannel(msg.chat.id))
+		return;
+	
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
@@ -476,6 +497,9 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 
 //Matches "/guild <command> [<data>]"
 Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
+	if(!isValidChannel(msg.chat.id))
+		return;
+	
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
@@ -1081,6 +1105,16 @@ function isVaildName(name) {
 
 function isVaildSearch(search) {
 	return search.match(/\d+-\d+/);
+}
+
+function isValidChannel(id) {
+	var ret = false;
+	global.channelList.forEach(function(wlid) {
+		if (wlid == id) {
+			ret = true;
+		}
+	})
+	return ret;
 }
 
 
