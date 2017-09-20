@@ -26,7 +26,7 @@ Global.setupServer();
 var answerCallbacks = [];
 var debug = false
 global.notifyChannelID = -1001119220057;
-global.channelList = [-1001119220057, -100114287636];
+global.channelList = [-1001119220057, -100114287636, 340941550];
 
 if (!debug) {
 	NConsole.writeLine("Setting up AutoSave.");
@@ -167,8 +167,8 @@ Global.Bot.onText(/^(\/user (.*)|\/user@Lucifer2Bot (.*))/, (msg, match) => {
 			if (getUser(UserID).isAdmin()) {
 				if(args.length == 3) {
 					var safename = args[1].replace("@", "")
-					var access = isTrueNumber(args[2]);
-					if (access == NaN) {
+					var access = args[2];
+					if (!isTrueNumber(access)) {
 						Global.Bot.sendMessage(chatId, "Wrong usage! Access is not a number.");
 						return;
 					}
@@ -176,7 +176,7 @@ Global.Bot.onText(/^(\/user (.*)|\/user@Lucifer2Bot (.*))/, (msg, match) => {
 					var tuser = getUser(null, safename);
 					
 					if (tuser.uID != "") {
-						tuser.Access = access;
+						tuser.Access = parseInt(access);
 						Global.Bot.sendMessage(chatId, `${safename}'s access set to ${access}!`)
 					} else {
 						Global.Bot.sendMessage(chatId, `${safename}'s doesn't exist. Have them /user register`);
