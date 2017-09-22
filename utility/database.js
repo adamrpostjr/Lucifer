@@ -67,7 +67,7 @@ Database.prototype = {
 		db.serialize(function() {
 			if(typeof db != "string") {
 				safethis.getUsers(function(err, list) { global.Users = list; NConsole.writeLine(`Loaded ${list.length} Users.`);});
-				safethis.getPlayers(function(err, list) { global.Players = list; NConsole.writeLine(`Loaded ${list.length} Players. GI: ${global.rowID}`);});
+				safethis.getPlayers(function(err, list) { global.Players = list;NConsole.writeLine(`Loaded ${list.length} Players. GI: ${global.rowID}`);global.Players.sort(function(a, b) {return a.ID - b.ID;});});
 				safethis.getGuilds(function(err, list) { global.Guilds = list; NConsole.writeLine(`Loaded ${list.length} Guilds.`);});
 			} else { NConsole.writeLine("Could not find Database."); }
 		})
