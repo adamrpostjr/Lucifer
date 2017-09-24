@@ -110,6 +110,15 @@ Global.Bot.onText(/^(\/donate|\/donate@Lucifer2Bot)/, (msg, match) => {
 	Global.Bot.sendMessage(chatId, "https://www.paypal.me/lexthegreat\nThanks!")
 });
 
+Global.Bot.onText(/^(\/check|\/check@Lucifer2Bot)/, (msg, match) => {
+	var chatId = msg.chat.id;
+	var UserID = msg.from.id;
+	var Username = msg.from.username;
+
+	Global.Bot.sendMessage(chatId, "we good bro");
+	NConsole.writeLine("Checked");
+});
+
 Global.Bot.onText(/^(\/help|\/help@Lucifer2Bot)/, (msg, match) => {
 	if(!isValidChannel(msg.chat.id))
 		return;
@@ -118,7 +127,7 @@ Global.Bot.onText(/^(\/help|\/help@Lucifer2Bot)/, (msg, match) => {
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
 
-	Global.Bot.sendMessage(chatId, '= HELP =\n() = Optional in any order\n | = Information\n /donate - > https://www.paypal.me/lexthegreat\n \n = /user =\n /user register\n /user getAccess <name>\n /user setAccess <name> <access>\n \n = /player =\n /player add <Username> (<Rep> <Ip>)\n /player edit <Username> (<Rep> Ip>)\n /player info <Username> | Return information and command for guild lookup.\n /player search min-max\n \n = /guild =\n /guild info <guild>\n /guild add <guild>\n /guild del <guild>\n /guild setOwner <guild> <player>\n /guild setCo <guild> <player>\n /guild setData <guild> <player>\n /guild setKey <guild> <player>\n /guild addMember <guild> <player>\n /guild delMember <guild> <player>\n /guild clearembers <guild> <player>');
+	Global.Bot.sendMessage(chatId, ' /donate - > https://www.paypal.me/lexthegreat\n \n = /player =\n /player add <Username> (<Rep> <Ip>)\n /player edit <Username> (<Rep> Ip>)\n /player info <Username>\n /player search min-max\n \n = /guild =\n /guild info <guild>\n /guild add <guild>\n /guild setOwner <guild> <player>\n /guild setCo <guild> <player>\n /guild setData <guild> <player>\n /guild setKey <guild> <player>\n /guild addMember <guild> <player>\n /guild delMember <guild> <player>\n /guild clearMembers <guild> <player>');
 });
 
 //Matches "/user <command> [<data>]"
@@ -164,7 +173,7 @@ Global.Bot.onText(/^(\/user (.*)|\/user@Lucifer2Bot (.*))/, (msg, match) => {
 			}
 			break;
 		case "setaccess":
-			if (getUser(UserID).isAdmin()) {
+			if (getUser(UserID).isDev()) {
 				if(args.length == 3) {
 					var safename = args[1].replace("@", "")
 					var access = args[2];
@@ -442,8 +451,8 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 					})
 					return;
 				}
-				
-				Global.Bot.sendMessage(chatId, `*ID*:\n\`${tplayer.ID}\`\n*Username*:\n\`${tplayer.Username}\`\n*Rep*:\n\`${tplayer.Rep}\`\n*IP*:\n\`${tplayer.IP}\``, {parse_mode: "Markdown"});
+
+				Global.Bot.sendMessage(chatId, `<b>ID</b>:\n ${tplayer.ID}\n <b>Username:</b>\n ${tplayer.Username}\n <b>Rep:</b>\n ${tplayer.Rep}\n <b>IP</b>:\n <code>${tplayer.IP}</code>`, {parse_mode: "HTML"});
 			} else {
 				Global.Bot.sendMessage(chatId, "Invaild username!");
 			}
@@ -473,8 +482,8 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 					var fullMessage = "";
 					tmpList.forEach(function(player) {
 						if(player.Rep >= minMax[0] && player.Rep <= minMax[1]) {
-							fullMessage = fullMessage + `Username: \`${player.Username}\` Rep: \`${player.Rep}\` @\`${player.IP}\`/n`;
-							
+							fullMessage = fullMessage + `<b>IGN:</b> ${player.Username} <b>Rep:</b> ${player.Rep} <b>@</b> <code>${player.IP}</code>/n`;
+
 						}
 					})
 					var matches = fullMessage.match(regEX)
@@ -482,7 +491,7 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 					
 					if (matches != null) {
 						matches.forEach(function(msg) {
-							Global.Bot.sendMessage(chatId, msg.replace(/\/n/g,"\n"),{parse_mode: "Markdown"});
+							Global.Bot.sendMessage(chatId, msg.replace(/\/n/g,"\n"),{parse_mode: "HTML"});
 						})
 					} else { Global.Bot.sendMessage(chatId, "No Players found!"); }
 				} else { Global.Bot.sendMessage(chatId, "Invaild Search! Min-Max"); }
@@ -517,7 +526,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				guild.importData(args[1]);
 				global.Guilds.push(guild);
 				global.NeedSave = true;
-				Global.Bot.sendMessage(chatId, `Guild ${args[1]} added!`);
+				Global.Bot.sendMessage(chatId, `Guild ${args[1]} added!`); NConsole.writeLine(`Added guild ${args[1]}.`);
 			} else {
 				askCreateGuild(msg, () => {
 					answerCallbacks[chatId] = function(msg) {
@@ -525,7 +534,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 						if (msg.text == "Yes.") {
 							var GuildData = new Guild();
 							GuildData.importData(args[1]);
-							global.Guilds.push(GuildData);
+							global.Guilds.push(GuildData); NConsole.writeLine(`Added guild ${args[1]}.`);
 							global.NeedSave = true;
 							Global.Bot.sendMessage(chatId, `Done.`, {reply_markup: JSON.stringify({remove_keyboard: true,selective: false})});
 						} else {
@@ -916,8 +925,8 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				IMembers.forEach(function(id) {
 					Members.push(getPlayer(null,null,id).Username);
 				})
-				var message = "= " + args[1] + " =\n Owner: \`" + Owner + "\`\n CoOwn: \`" + CoOwner + "\`\n Data: \`" + Data + "\`\n Key: \`" + Key + "\`\n Members:\n \`" + Members + "\`";
-				Global.Bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
+				var message = "<b>= </b>" + args[1] + " <b>=</b>\n <b>Owner:</b> " + Owner + " \n <b>CoOwn:</b> " + CoOwner + " \n <b>Data:</b> \ " + Data + " \n <b>Key:</b>  " + Key + " \n <b>Members:</b>\n " + Members + " ";
+				Global.Bot.sendMessage(chatId, message, {parse_mode: "HTML"});
 			} else {
 				askCreateGuild(msg, () => {
 					answerCallbacks[chatId] = function(msg) {
