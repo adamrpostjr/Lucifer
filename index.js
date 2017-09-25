@@ -26,7 +26,7 @@ Global.setupServer();
 var answerCallbacks = [];
 var debug = false
 global.notifyChannelID = -1001119220057;
-global.channelList = [-1001119220057, -100114287636, 340941550];
+global.channelList = [-1001119220057, -1001114287636, 340941550];
 
 if (!debug) {
 	NConsole.writeLine("Setting up AutoSave.");
