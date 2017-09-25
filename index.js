@@ -53,8 +53,8 @@ Global.Bot.on('message', msg => {
 	//NConsole.writeLine(msg);
 	if(!isValidChannel(msg.chat.id))
 		return;
-	
-	
+
+
 	let callback = answerCallbacks[msg.chat.id];
 	if (callback) {
 		delete answerCallbacks[msg.chat.id];
@@ -65,11 +65,11 @@ Global.Bot.on('message', msg => {
 Global.Bot.onText(/^(\/load|\/load@Lucifer2Bot)/, (msg, match) => {
 	if(!isValidChannel(msg.chat.id))
 		return;
-	
+
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
-	
+
 	if (getUser(UserID).isDev()) {
 		Global.Bot.sendMessage(chatId, "Forcing load.")
 		Global.Database.loadData();
@@ -79,11 +79,11 @@ Global.Bot.onText(/^(\/load|\/load@Lucifer2Bot)/, (msg, match) => {
 Global.Bot.onText(/^(\/save|\/save@Lucifer2Bot)/, (msg, match) => {
 	if(!isValidChannel(msg.chat.id))
 		return;
-	
+
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
-	
+
 	if (getUser(UserID).isDev()) {
 		Global.Bot.sendMessage(chatId, "Forcing save.")
 		Global.Database.saveData();
@@ -102,7 +102,7 @@ Global.Bot.onText(/^(\/uid|\/uid@Lucifer2Bot)/, (msg, match) => {
 Global.Bot.onText(/^(\/donate|\/donate@Lucifer2Bot)/, (msg, match) => {
 	if(!isValidChannel(msg.chat.id))
 		return;
-	
+
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
@@ -122,7 +122,7 @@ Global.Bot.onText(/^(\/check|\/check@Lucifer2Bot)/, (msg, match) => {
 Global.Bot.onText(/^(\/help|\/help@Lucifer2Bot)/, (msg, match) => {
 	if(!isValidChannel(msg.chat.id))
 		return;
-	
+
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
@@ -134,13 +134,13 @@ Global.Bot.onText(/^(\/help|\/help@Lucifer2Bot)/, (msg, match) => {
 Global.Bot.onText(/^(\/user (.*)|\/user@Lucifer2Bot (.*))/, (msg, match) => {
 	if(!isValidChannel(msg.chat.id))
 		return;
-	
+
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
-	
+
 	var args = match[2].toLowerCase().split(" ");
-	
+
 	switch(args[0]) {
 		case "register":
 			// args[1] should be a name
@@ -181,16 +181,16 @@ Global.Bot.onText(/^(\/user (.*)|\/user@Lucifer2Bot (.*))/, (msg, match) => {
 						Global.Bot.sendMessage(chatId, "Wrong usage! Access is not a number.");
 						return;
 					}
-					
+
 					var tuser = getUser(null, safename);
-					
+
 					if (tuser.uID != "") {
 						tuser.Access = parseInt(access);
 						Global.Bot.sendMessage(chatId, `${safename}'s access set to ${access}!`)
 					} else {
 						Global.Bot.sendMessage(chatId, `${safename}'s doesn't exist. Have them /user register`);
 					}
-					
+
 				} else {
 					Global.Bot.sendMessage(chatId, `Invaild Arguments! ${args.length} != 3`);
 				}
@@ -205,29 +205,29 @@ Global.Bot.onText(/^(\/user (.*)|\/user@Lucifer2Bot (.*))/, (msg, match) => {
 Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => {
 	if(!isValidChannel(msg.chat.id))
 		return;
-	
+
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
-	
+
 	var args = match[2].toLowerCase().split(" ");
-	
+
 	switch(args[0]) {
 		case "add":
 			if (args.length < 1) {
 				Global.Bot.sendMessage(chatId, "Invaild username!");
 				return;
 			}
-			
-			
-		
+
+
+
 			if(isVaildName(args[1])) {
 				var tplayer = getPlayer(args[1]);
 				if(tplayer.ID != 0) {
 					Global.Bot.sendMessage(chatId, `Player already exists!`);
 					return;
 				}
-				
+
 				if(args.length == 4) {
 					var two = 0;
 					var thre = 0;
@@ -241,7 +241,7 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 							return;
 						}
 					}
-					
+
 					if(isIP(args[3])) {
 						thre = 1;
 					} else {
@@ -308,10 +308,10 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 				Global.Bot.sendMessage(chatId, "Invaild username!");
 				return;
 			}
-		
+
 			if(isVaildName(args[1])) {
 				var tplayer = getPlayer(args[1]);
-				
+
 				if(tplayer.ID == 0) {
 					askCreatePlayer(msg, () => {
 						answerCallbacks[chatId] = function(msg) {
@@ -329,7 +329,7 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 					})
 					return;
 				}
-				
+
 				if(args.length == 4) {
 					var two = 0;
 					var thre = 0
@@ -343,7 +343,7 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 							return;
 						}
 					}
-					
+
 					if(isIP(args[3])) {
 						thre = 1;
 					} else {
@@ -430,10 +430,10 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 				Global.Bot.sendMessage(chatId, "Invaild username!");
 				return;
 			}
-		
+
 			if(isVaildName(args[1])) {
 				var tplayer = getPlayer(args[1]);
-				
+
 				if(tplayer.ID == 0) {
 					askCreatePlayer(msg, () => {
 						answerCallbacks[chatId] = function(msg) {
@@ -462,33 +462,33 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 				Global.Bot.sendMessage(chatId, "Invaild search!");
 				return;
 			}
-			
+
 			if (isVaildSearch(args[1])) {
 				var minMax = args[1].split("-");
-				
+
 				if (!parseInt(minMax[0]) && !parseInt(minMax[1])) {
 					return;
 				}
-				
+
 				if (minMax[0] <= minMax[1]) {
 					var tmpList = global.Players;
 					tmpList.sort(function(a, b) {
-						return b.Rep - a.Rep;
+						return a.Rep - b.Rep;
 					});
-					
-					// List each 
+
+					// List each
 					var regEX = /.{1,2000}(?=([\s\-:]|$))/g
 
 					var fullMessage = "";
 					tmpList.forEach(function(player) {
 						if(player.Rep >= minMax[0] && player.Rep <= minMax[1]) {
-							fullMessage = fullMessage + `<b>IGN:</b> ${player.Username} <b>Rep:</b> ${player.Rep} <b>@</b> <code>${player.IP}</code>/n`;
+							fullMessage = fullMessage + `<b>IGN:</b> ${player.Username} <b>Rep:</b> ${player.Rep} <b>@</b> <code>${player.IP}</code> /n`;
 
 						}
 					})
 					var matches = fullMessage.match(regEX)
 					//NConsole.writeLine(matches);
-					
+
 					if (matches != null) {
 						matches.forEach(function(msg) {
 							Global.Bot.sendMessage(chatId, msg.replace(/\/n/g,"\n"),{parse_mode: "HTML"});
@@ -508,11 +508,11 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 	if(!isValidChannel(msg.chat.id))
 		return;
-	
+
 	var chatId = msg.chat.id;
 	var UserID = msg.from.id;
 	var Username = msg.from.username;
-	
+
 	var args = match[2].toLowerCase().split(" ");
 	switch(args[0]) {
 		case "add":
@@ -520,7 +520,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				Global.Bot.sendMessage(chatId, `Invaild Arguments! ${args.length} != 2`);
 				return;
 			}
-		
+
 			if (!containsGuild(args[1])) {
 				var guild = new Guild();
 				guild.importData(args[1]);
@@ -551,7 +551,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 					Global.Bot.sendMessage(chatId, `Invaild Guild Name!`);
 					return;
 				}
-				
+
 				if (containsGuild(args[1])) {
 					delGuild(args[1]);
 					Global.Bot.sendMessage(chatId, `Guild ${args[1]} removed!`);
@@ -579,10 +579,10 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				Global.Bot.sendMessage(chatId, `Invaild Arguments! ${args.length} != 3`);
 				return;
 			}
-			
+
 			if(args[2].match(/^\w+$/) != null) {
 				var tplayer = getPlayer(args[2]);
-				
+
 				if(tplayer.ID == 0) {
 					askCreatePlayer(msg, () => {
 						answerCallbacks[chatId] = function(msg) {
@@ -600,7 +600,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 					})
 					return;
 				}
-				
+
 				if (containsGuild(args[1])) {
 					if(args[2] == 0) {
 						Global.Bot.sendMessage(chatId, `Guild ${args[1]} owner reset.`);
@@ -633,10 +633,10 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				Global.Bot.sendMessage(chatId, "Invaild!");
 				return;
 			}
-			
+
 			if(args[2].match(/^\w+$/) != null) {
 				var tplayer = getPlayer(args[2]);
-				
+
 				if(tplayer.ID == 0) {
 					askCreatePlayer(msg, () => {
 						answerCallbacks[chatId] = function(msg) {
@@ -654,7 +654,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 					})
 					return;
 				}
-				
+
 				if (containsGuild(args[1])) {
 					if(args[2] == 0) {
 						Global.Bot.sendMessage(chatId, `Guild ${args[1]} data reset.`);
@@ -687,10 +687,10 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				Global.Bot.sendMessage(chatId, "Invaild Arguments!");
 				return;
 			}
-			
+
 			if(args[2].match(/^\w+$/) != null) {
 				var tplayer = getPlayer(args[2]);
-				
+
 				if(tplayer.ID == 0) {
 					askCreatePlayer(msg, () => {
 						answerCallbacks[chatId] = function(msg) {
@@ -708,7 +708,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 					})
 					return;
 				}
-				
+
 				if (containsGuild(args[1])) {
 					if(args[2] == 0) {
 						Global.Bot.sendMessage(chatId, `Guild ${args[1]} key reset.`);
@@ -741,10 +741,10 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				Global.Bot.sendMessage(chatId, "Invaild!");
 				return;
 			}
-		
+
 			if(args[2].match(/^\w+$/) != null) {
 				var tplayer = getPlayer(args[2]);
-				
+
 				if(tplayer.ID == 0) {
 					askCreatePlayer(msg, () => {
 						answerCallbacks[chatId] = function(msg) {
@@ -762,7 +762,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 					})
 					return;
 				}
-				
+
 				if (containsGuild(args[1])) {
 					if(args[2] == 0) {
 						Global.Bot.sendMessage(chatId, `Guild ${args[1]} coowner reset.`);
@@ -795,10 +795,10 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				Global.Bot.sendMessage(chatId, "Invaild!");
 				return;
 			}
-		
+
 			if(args[2].match(/^\w+$/) != null) {
 				var tplayer = getPlayer(args[2]);
-				
+
 				if(tplayer.ID == 0) {
 					askCreatePlayer(msg, () => {
 						answerCallbacks[chatId] = function(msg) {
@@ -816,7 +816,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 					})
 					return;
 				}
-				
+
 				if (containsGuild(args[1])) {
 					var guild = getGuild(args[1]);
 					if (guild.addMember(tplayer.ID)) {
@@ -846,10 +846,10 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 					Global.Bot.sendMessage(chatId, "Invaild!");
 					return;
 				}
-			
+
 				if(args[2].match(/^\w+$/) != null) {
 					var tplayer = getPlayer(args[2]);
-					
+
 					if(tplayer.ID == 0) {
 						askCreatePlayer(msg, () => {
 							answerCallbacks[chatId] = function(msg) {
@@ -867,7 +867,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 						})
 						return;
 					}
-					
+
 					if (containsGuild(args[1])) {
 						var guild = getGuild(args[1]);
 						if (guild.removeMember(tplayer.ID)) {
@@ -899,7 +899,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 					Global.Bot.sendMessage(chatId, "Invaild!");
 					return;
 				}
-				
+
 				if (containsGuild(args[1])) {
 					var guild = getGuild(args[1]);
 					guild.Members = [];
@@ -911,7 +911,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				Global.Bot.sendMessage(chatId, "Invaild!");
 				return;
 			}
-			
+
 			if (containsGuild(args[1])) {
 				console.log("test");
 				var guild = getGuild(args[1]);
@@ -921,7 +921,7 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 				var Key = getPlayer(null,null,guild.Key).Username;
 				var IMembers = guild.Members
 				var Members = []
-				
+
 				IMembers.forEach(function(id) {
 					Members.push(getPlayer(null,null,id).Username);
 				})
@@ -949,8 +949,8 @@ Global.Bot.onText(/^(\/guild (.*)|\/guild@Lucifer2Bot (.*))/, (msg, match) => {
 			if (global.Guilds.length == 0) {
 				Global.Bot.sendMessage(chatId, "There are no guilds!");
 			}
-			
-			// List each 
+
+			// List each
 			var regEX = /.{1,2000}(?=([\s\-:]|$))/g
 
 			var fullMessage = "";
@@ -982,7 +982,7 @@ function getUser(UserID, Username = false) {
 			}
 		})
 	}
-	
+
 	global.Users.forEach(function(User) {
 		if (UserID == User.uID) {
 			ret = User;
@@ -1000,7 +1000,7 @@ function containsUser(uID, Username = false) {
 			}
 		})
 	}
-	
+
 	global.Users.forEach(function(User) {
 		if (uID == User.uID) {
 			ret = true;
@@ -1019,7 +1019,7 @@ function getPlayer(Username, IP = false, ID = false) {
 			} else { return ret; }
 		} else { return ret; }
 	}
-	
+
 	if (IP != false) {
 		global.Players.forEach(function(Player) {
 			if (IP == Player.IP) {
@@ -1027,7 +1027,7 @@ function getPlayer(Username, IP = false, ID = false) {
 			}
 		})
 	}
-	
+
 	global.Players.forEach(function(Player) {
 		if (Username == Player.Username) {
 			ret = Player;
@@ -1044,7 +1044,7 @@ function containsPlayer(Username, IP = false, ID = false) {
 				return true;
 		} else { return false }
 	}
-	
+
 	if (IP != false) {
 		global.Players.forEach(function(Player) {
 			if (IP == Player.IP) {
@@ -1052,7 +1052,7 @@ function containsPlayer(Username, IP = false, ID = false) {
 			}
 		})
 	}
-	
+
 	global.Players.forEach(function(Player) {
 		if (Username == Player.Username) {
 			ret = true
@@ -1098,7 +1098,7 @@ function delGuild(Name) {
 function isIP(ip) {
 	var re = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 	var found = ip.match(re);
-	
+
 	if (found != null)
 		return true
 	return false;
@@ -1128,7 +1128,7 @@ function isValidChannel(id) {
 
 
 // ==
-	
+
 function askCreatePlayer(msg, callback) {
 	var chatId = msg.chat.id;
 	const opts = {
@@ -1163,7 +1163,7 @@ function askCreateGuild(msg, callback) {
 
 /*function exitHandler(options, err) {
 	//Global.Database.saveData();
-	
+
     //if (options.cleanup);
     if (err) console.log(err.stack);
     if (options.exit) process.exit();
