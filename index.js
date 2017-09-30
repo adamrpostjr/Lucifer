@@ -258,11 +258,11 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 						if (two == 1) {
 							global.rowID++;PlayerData.importData(global.rowID, args[1], parseInt(args[3]), args[2]);
 							NConsole.writeLine(`Added ${args[1]} with IP:${args[2]} Rep:${args[3]}.`);
-							Global.Bot.sendMessage(chatId, `Updated ${args[1]} with Rep:${args[3]} at IP:${args[2]}.`);
+							Global.Bot.sendMessage(chatId, `Updated <b>${args[1]}</b> with Rep:<b>${args[3]}</b> at IP:<code>${args[2]}</code>.`, {parse_mode: "HTML"});
 						} else {
 							global.rowID++;PlayerData.importData(global.rowID, args[1], parseInt(args[2]), args[3]);
 							NConsole.writeLine(`Added ${args[1]} with IP:${args[3]} Rep:${args[2]}.`);
-							Global.Bot.sendMessage(chatId, `Updated ${args[1]} with Rep:${args[2]} at IP:${args[3]}.`);
+							Global.Bot.sendMessage(chatId, `Updated <b>${args[1]}</b> with Rep:<b>${args[2]}</b> at IP:<code>${args[3]}</code>.`, {parse_mode: "HTML"});
 						}
 						global.Players.push(PlayerData); NConsole.writeLine(`Added ${args[1]} with ${args[2]} ${args[3]}.`);
 						global.NeedSave = true;
@@ -359,11 +359,11 @@ Global.Bot.onText(/^(\/player (.*)|\/player@Lucifer2Bot (.*))/, (msg, match) => 
 						if (two == 1) {
 							tplayer.IP = args[2]; tplayer.Rep = parseInt(args[3]);
 							NConsole.writeLine(`Updated ${args[1]} with IP:${args[2]} Rep:${args[3]}.`);
-							Global.Bot.sendMessage(chatId, `Updated ${args[1]} with Rep:${args[3]} at IP:${args[2]}.`);
+							Global.Bot.sendMessage(chatId, `Updated <b>${args[1]}</b< with Rep:<b>${args[3]}</b> at IP:<code>${args[2]}</code>.`, {parse_mode: "HTML"});
 						} else {
 							tplayer.IP = args[3]; tplayer.Rep = parseInt(args[2]);
 							NConsole.writeLine(`Updated ${args[1]} with IP:${args[3]} Rep:${args[2]}.`);
-							Global.Bot.sendMessage(chatId, `Updated ${args[1]} with Rep:${args[2]} at IP:${args[3]}.`);
+							Global.Bot.sendMessage(chatId, `Updated <b>${args[1]}</b> with Rep:<b>${args[2]}</b> at IP:<code>${args[3]}</code>.`, {parse_mode: "HTML"});
 						}
 					} else {
 						Global.Bot.sendMessage(chatId, `Number & IP required, got string!`);
